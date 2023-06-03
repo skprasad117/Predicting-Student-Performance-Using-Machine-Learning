@@ -40,7 +40,8 @@ class ModelTrainer:
                 "XGBRegressor": XGBRegressor(),
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
-            }
+            }        
+            
             model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,
                                              models=models)
             
@@ -61,9 +62,9 @@ class ModelTrainer:
                 obj=best_model
             )
 
-            predicted = best_model.predicted(X_test)
+            predicted = best_model.predict(X_test)
 
-            r2_score = r2_score(y_test,predicted)
-            return r2_score
+            r2_square = r2_score(y_test,predicted)
+            return r2_square
         except Exception as e:
             raise CustomException(e,sys)
