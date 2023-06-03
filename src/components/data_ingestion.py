@@ -7,6 +7,11 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass  # to directly define class variable without __init__ using decorator @dataclass
 
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
@@ -47,7 +52,11 @@ class DataIngestion:
 
 if __name__ == "__main__":
     obj = DataIngestion()
-    obj.initiate_data_ingestion()
-    #train_data, test_data = obj.initiate_data_ingestion()
+    train_data, test_data = obj.initiate_data_ingestion()
 
-    # data_transformation = Data
+    data_transformation = DataTransformation()
+    train_arr,test_arr=data_transformation.initiate_data_transformation(train_data,test_data)
+
+    model_trainer = ModelTrainer
+    acc = model_trainer.initiate_model_trainer(train_arr,test_arr)
+    print(acc)
